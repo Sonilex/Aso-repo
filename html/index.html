@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia Vida Saludable</title>
+
+    <style>
+        /* CONFIGURACIÓN GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f9f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ENCABEZADO */
+        header {
+            background: #ffffff;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px #00000010;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: #13845b;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* MENÚ DE NAVEGACIÓN */
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a, .menu-desplegable summary {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        nav a:hover,
+        .menu-desplegable summary:hover {
+            color: #13845b;
+        }
+
+        .menu-desplegable {
+            position: relative;
+        }
+
+        .menu-desplegable summary::after {
+            content: " ▼";
+            font-size: 10px;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 190px;
+            box-shadow: 0 5px 15px #00000020;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .menu-desplegable[open] .sub-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sub-menu a {
+            padding: 5px;
+        }
+
+        /* PORTADA */
+        .portada {
+            background: linear-gradient(120deg, #dff4e9, #f5fcf8);
+            padding: 90px 8%;
+            text-align: center;
+        }
+
+        .portada h1 {
+            color: #137b54;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .portada p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            font-size: 17px;
+            color: #555;
+        }
+
+        .boton {
+            display: inline-block;
+            background: #13845b;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background: #0d6243;
+        }
+
+        /* SECCIONES GENERALES */
+        section {
+            padding: 65px 8%;
+            scroll-margin-top: 90px;
+        }
+
+        .titulo {
+            text-align: center;
+            color: #13845b;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .descripcion {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 35px;
+            color: #666;
+        }
+
+        /* INFORMACIÓN */
+        .informacion {
+            background: white;
+        }
+
+        .tarjetas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .tarjeta {
+            background: #f5faf7;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-bottom: 4px solid #13845b;
+        }
+
+        .icono {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta h3 {
+            color: #13845b;
+            margin-bottom: 10px;
+        }
+
+        /* PROBLEMAS Y SOLUCIONES */
+        .problemas {
+            background: #f5f9f7;
+        }
+
+        .problema-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            border-left: 5px solid #13845b;
+        }
+
+        .problema-card h3 {
+            color: #13845b;
+            margin-bottom: 8px;
+        }
+
+        /* CONTACTO */
+        .contacto {
+            background: white;
+            text-align: center;
+        }
+
+        .contacto p {
+            margin: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #153d30;
+            color: white;
+            padding: 40px 8% 20px;
+        }
+
+        .footer-contenido {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        footer h3 {
+            color: #83dfb5;
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #83dfb5;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #ffffff30;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+
+        /* DISEÑO RESPONSIVE */
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .tarjetas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-contenido {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .tarjetas {
+                grid-template-columns: 1fr;
+            }
+
+            .portada h1 {
+                font-size: 30px;
+            }
+
+            section {
+                padding: 45px 6%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header>
+
+        <div class="logo">
+            ✚ Vida Saludable
+        </div>
+
+        <nav>
+            <a href="#inicio">Inicio</a>
+
+            <details class="menu-desplegable">
+                <summary>Información</summary>
+                <div class="sub-menu">
+                    <a href="#nosotros">Nosotros</a>
+                    <a href="#servicios">Servicios</a>
+                    <a href="#prevencion">Prevención</a>
+                </div>
+            </details>
+
+            <details class="menu-desplegable">
+                <summary>Salud</summary>
+                <div class="sub-menu">
+                    <a href="#problemas">Problemas frecuentes</a>
+                    <a href="#soluciones">Soluciones</a>
+                </div>
+            </details>
+
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+    </header>
+
+    <!-- PORTADA -->
+    <main>
+
+        <section class="portada" id="inicio">
+
+            <h1>Tu salud es nuestra prioridad</h1>
+
+            <p>
+                Bienvenido a Vida Saludable, un espacio dedicado
+                a brindarte información farmacéutica, consejos
+                de prevención y orientación para cuidar tu bienestar.
+            </p>
+
+            <a href="#nosotros" class="boton">
+                Conócenos
+            </a>
+
+        </section>
+
+        <!-- INFORMACIÓN BÁSICA -->
+        <section class="informacion" id="nosotros">
+
+            <h2 class="titulo">¿Quiénes somos?</h2>
+
+            <p class="descripcion">
+                Somos un espacio informativo dedicado a la salud,
+                el bienestar y el uso responsable de medicamentos.
+            </p>
+
+            <div class="tarjetas">
+
+                <div class="tarjeta">
+                    <div class="icono">💊</div>
+                    <h3>Medicamentos</h3>
+                    <p>
+                        Información general sobre medicamentos
+                        y su utilización responsable.
+                    </p>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="icono">🩺</div>
+                    <h3>Orientación</h3>
+                    <p>
+                        Información básica para conocer
+                        diferentes aspectos de la salud.
+                    </p>
+                </div>
+
+                <div class="tarjeta" id="servicios">
+                    <div class="icono">🌿</div>
+                    <h3>Bienestar</h3>
+                    <p>
+                        Recomendaciones para mantener
+                        hábitos saludables.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PREVENCIÓN -->
+        <section id="prevencion">
+
+            <h2 class="titulo">Prevención y cuidado</h2>
+
+            <p class="descripcion">
+                La prevención es fundamental para mantener
+                una buena calidad de vida.
+            </p>
+
+            <div class="tarjetas">
+
+                <div class="tarjeta">
+                    <div class="icono">🥗</div>
+                    <h3>Alimentación</h3>
+                    <p>Mantener una alimentación equilibrada.</p>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="icono">💧</div>
+                    <h3>Hidratación</h3>
+                    <p>Consumir suficiente agua diariamente.</p>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="icono">🏃</div>
+                    <h3>Actividad física</h3>
+                    <p>Realizar actividad física regularmente.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PROBLEMAS -->
+        <section class="problemas" id="problemas">
+
+            <h2 class="titulo">Problemas de salud frecuentes</h2>
+
+            <p class="descripcion">
+                Conoce algunos problemas comunes y la importancia
+                de recibir una atención adecuada.
+            </p>
+
+            <div class="problema-card">
+                <h3>1. Dolor de cabeza</h3>
+                <p>
+                    Puede relacionarse con estrés, falta de sueño
+                    o diferentes condiciones médicas.
+                </p>
+            </div>
+
+            <div class="problema-card">
+                <h3>2. Resfriado común</h3>
+                <p>
+                    Es una infección respiratoria que puede producir
+                    congestión nasal, tos y estornudos.
+                </p>
+            </div>
+
+            <div class="problema-card">
+                <h3>3. Problemas digestivos</h3>
+                <p>
+                    Pueden presentarse molestias estomacales,
+                    acidez o alteraciones digestivas.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- SOLUCIONES -->
+        <section id="soluciones">
+
+            <h2 class="titulo">Soluciones y recomendaciones</h2>
+
+            <p class="descripcion">
+                Algunas medidas generales que ayudan a cuidar
+                nuestra salud.
+            </p>
+
+            <div class="tarjetas">
+
+                <div class="tarjeta">
+                    <div class="icono">👨‍⚕️</div>
+                    <h3>Consultar al profesional</h3>
+                    <p>
+                        Buscar orientación médica o farmacéutica
+                        antes de utilizar medicamentos.
+                    </p>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="icono">📋</div>
+                    <h3>Uso responsable</h3>
+                    <p>
+                        Respetar las indicaciones, dosis y horarios
+                        establecidos por el profesional.
+                    </p>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="icono">❤️</div>
+                    <h3>Prevención</h3>
+                    <p>
+                        Adoptar hábitos saludables y realizar
+                        controles médicos periódicos.
+                    </p>
+                </div>
+
+            </div>
+
+            <p style="text-align:center; margin-top:25px;">
+                <strong>Importante:</strong> Esta información es educativa
+                y no sustituye el diagnóstico ni el tratamiento médico.
+            </p>
+
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="contacto" id="contacto">
+
+            <h2 class="titulo">Contáctanos</h2>
+
+            <p>
+                ¿Tienes alguna consulta? Estamos para ayudarte.
+            </p>
+
+            <a href="mailto:contacto@vidasaludable.com" class="boton">
+                Enviar correo
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-contenido">
+
+            <div>
+                <h3>Vida Saludable</h3>
+                <p>
+                    Cuidando tu salud y bienestar
+                    con información responsable.
+                </p>
+            </div>
+
+            <div>
+                <h3>Información</h3>
+                <p><a href="#inicio">Inicio</a></p>
+                <p><a href="#nosotros">Nosotros</a></p>
+                <p><a href="#servicios">Servicios</a></p>
+                <p><a href="#problemas">Salud</a></p>
+            </div>
+
+            <div>
+                <h3>Contacto</h3>
+                <p>📍 Dirección: Tu ubicación</p>
+                <p>📞 Teléfono: 0000-0000</p>
+                <p>✉ Correo: contacto@vidasaludable.com</p>
+                <p>
+                    <a href="#">Facebook</a> |
+                    <a href="#">Instagram</a>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            <p>© 2026 Vida Saludable - Todos los derechos reservados.</p>
+        </div>
+
+    </footer>
+
+</body>
+</html>
